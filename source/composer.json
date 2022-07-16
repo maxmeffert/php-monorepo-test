@@ -1,6 +1,22 @@
 {
+    "require": {
+        "php": "^7.2",
+        "symfony/dependency-injection": "^5.0",
+        "symfony/http-kernel": "^5.0"
+    },
     "require-dev": {
+        "phpunit/phpunit": "^9.5",
         "symplify/composer-json-manipulator": "^11.0",
         "symplify/monorepo-builder": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhpMonorepoTest\\PackageA\\": "packages/package-a/src",
+            "PhpMonorepoTest\\PackageB\\": "packages/package-b/src"
+        }
+    },
+    "replace": {
+        "maxmeffert/php-monorepo-test-package-a": "self.version",
+        "maxmeffert/php-monorepo-test-package-b": "self.version"
     }
 }
