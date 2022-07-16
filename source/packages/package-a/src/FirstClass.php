@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace YourMonorepo\FirstPackage;
+namespace PhpMonorepoTest\PackageA;
 
 final class FirstClass
 {
