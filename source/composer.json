@@ -1,0 +1,6 @@
+{
+    "require-dev": {
+        "symplify/composer-json-manipulator": "^11.0",
+        "symplify/monorepo-builder": "^11.0"
+    }
+}
