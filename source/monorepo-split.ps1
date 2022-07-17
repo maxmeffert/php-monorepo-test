@@ -1,9 +1,15 @@
 function Publish-Package($PackagePath, $PackageRepo)
 {
+
+  "===========================================" | Write-Host -ForegroundColor Cyan
+  "Publish-Package" | Write-Host -ForegroundColor Cyan
+  "===========================================" | Write-Host -ForegroundColor Cyan
+  "PackagePath $PackagePath" | Write-Host -ForegroundColor Cyan
+  "PublishRepo $PackageRepo" | Write-Host -ForegroundColor Cyan
+
   $WorkingDirectory = '.monorepo-split'
   $CloneDirectory = "$WorkingDirectory/clone-directory"
   $BuildDirectory = "$WorkingDirectory/build-directory"
-
 
   if (Test-Path $WorkingDirectory)
   {
@@ -15,27 +21,34 @@ function Publish-Package($PackagePath, $PackageRepo)
   New-Item -Force -ItemType Directory -Path $BuildDirectory | Out-Null
 
 
-  "Cloning $PackageRepo" | Out-Host
+  "Clone upstream repository: $PackageRepo" | Write-Host -ForegroundColor Cyan
   git clone $PackageRepo $CloneDirectory
 
+  "Move .git folder from $CloneDirectory to $BuildDirectory" | Write-Host -ForegroundColor Cyan
   Move-Item -Path $CloneDirectory/.git -Destination $BuildDirectory/.git
 
+  "Remove $CloneDirectory" | Write-Host -ForegroundColor Cyan
   Remove-Item -Force -Recurse $CloneDirectory
 
+  "Copy items from $PackagePath to $BuildDirectory" | Write-Host -ForegroundColor Cyan
   Get-ChildItem $PackagePath | Copy-Item -Recurse -Destination $BuildDirectory
 
+
+  "Change location to $BuildDirectory" | Write-Host -ForegroundColor Cyan
   Push-Location $BuildDirectory
 
+  "Add changes" | Write-Host -ForegroundColor Cyan
   git add .
-
   git status --porcelain
 
-  git commit -m 'monorepo split commit'
 
+  "Push changes to $PackageRepo" | Write-Host -ForegroundColor Cyan
+  git commit -m 'monorepo split commit'
   git push $PackageRepo main
 
   Pop-Location
 
+  "Cleanup" | Write-Host -ForegroundColor Cyan
   Remove-Item -Force -Recurse $BuildDirectory
 }
 
