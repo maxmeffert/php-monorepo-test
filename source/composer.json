@@ -11,8 +11,8 @@
     },
     "autoload": {
         "psr-4": {
-            "PhpMonorepoTest\\PackageA\\": "packages/package-a/src",
-            "PhpMonorepoTest\\PackageB\\": "packages/package-b/src"
+            "PhpMonorepoTest\\PackageA\\": "packages/php-monorepo-test-package-a/src",
+            "PhpMonorepoTest\\PackageB\\": "packages/php-monorepo-test-package-b/src"
         }
     },
     "replace": {
