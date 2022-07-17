@@ -1,6 +1,5 @@
 {
     "name": "maxmeffert/php-monorepo-test-package-b",
-    "version": "1.0.0",
     "require": {
         "php": "^7.2 | ^8.0",
         "symfony/dependency-injection": "^6.0",
